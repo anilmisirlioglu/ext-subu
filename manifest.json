@@ -6,12 +6,29 @@
   "homepage_url": "https://github.com/anilmisirlioglu/ext-subu",
   "description": "Chrome extension for Sakarya University of Applied Sciences",
   "icons": {
-    "16": "images/subu_16x16.png",
-    "48": "images/subu_48x48.png",
-    "128": "images/subu_128x128.png"
+    "16": "images/icon_16.png",
+    "19": "images/icon_19.png",
+    "32": "images/icon_32.png",
+    "48": "images/icon_48.png",
+    "64": "images/icon_64.png",
+    "128": "images/icon_128.png",
+    "256": "images/icon_256.png",
+    "512": "images/icon_512.png",
+    "1024": "images/icon_1024.png"
   },
   "browser_action": {
-    "default_icon": "images/subu_128x128.png",
-    "default_popup": "index.html"
+    "default_icon": {
+      "16": "images/icon_16.png",
+      "19": "images/icon_19.png",
+      "32": "images/icon_32.png",
+      "48": "images/icon_48.png",
+      "64": "images/icon_64.png",
+      "128": "images/icon_128.png",
+      "256": "images/icon_256.png",
+      "512": "images/icon_512.png",
+      "1024": "images/icon_1024.png"
+    },
+    "default_title": "SUBÜ Fixer",
+    "default_popup": "test.html"
   }
 }
