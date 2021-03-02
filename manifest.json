@@ -29,6 +29,19 @@
       "1024": "images/icon_1024.png"
     },
     "default_title": "SUBÜ Fixer",
-    "default_popup": "test.html"
-  }
+    "default_popup": "html/popup.html"
+  },
+  "background": {
+    "page": "html/background.html"
+  },
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "webRequest",
+    "webNavigation",
+    "http://*.subu.edu.tr/*",
+    "https://*.subu.edu.tr/*"
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'"
 }
