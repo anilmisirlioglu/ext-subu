@@ -12,3 +12,6 @@
 4. Click "Load unpacked extension...", then select the cloned `ext-subu` directory.
 
 5. Finally, enjoy.
+
+## Preview
+![image](https://user-images.githubusercontent.com/20264712/109868555-d1a36c00-7c78-11eb-93e5-19a5b4c4399e.png)
