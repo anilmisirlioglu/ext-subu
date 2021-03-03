@@ -8,6 +8,16 @@ const Content = {
         if(!appStatus){
             await renderPP(await getOption('pp', true))
         }
+
+        Content.fixUI()
+    },
+
+    fixUI(){
+        // LMS Options Menu UI Fixer
+        Array.from(document.querySelectorAll('.profile-contact-links')).forEach((box) => {
+            box.style['margin-right'] = '10px'
+            box.style['margin-left'] = '10px'
+        })
     },
 
     driver(func, args){

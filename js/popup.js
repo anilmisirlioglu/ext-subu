@@ -51,18 +51,14 @@ const setExtensionStatus = enabled => {
 }
 
 const initOptions = async () => {
-    const opt = await getOption('pp', false)
-    setPPStatus(opt)
-    Popup.renderHTML(opt)
+    renderPPUI(await getOption('pp', false))
 
     document
         .getElementById('pp-disabled')
         .addEventListener('click', async() => {
             await setOption('pp', true)
 
-            Popup.renderHTML('true')
-
-            setPPStatus(true)
+            renderPPUI(true)
         })
 
     document
@@ -70,13 +66,13 @@ const initOptions = async () => {
         .addEventListener('click', async() => {
             await setOption('pp', false)
 
-            Popup.renderHTML('false')
-
-            setPPStatus(false)
+            renderPPUI(false)
         })
 }
 
-const setPPStatus = status => {
+const renderPPUI = status => {
+    Popup.renderHTML(status)
+
     if(status){
         document
             .getElementById('pp-enabled')
