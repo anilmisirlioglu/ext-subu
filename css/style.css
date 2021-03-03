@@ -35,7 +35,7 @@ a:focus, p:focus {
 }
 
 a:hover, p:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 p {
@@ -56,7 +56,7 @@ p {
     margin-top: .5rem;
 }
 
-.switch-icon {
+.switch-icon, .settings-icon {
     color: var(--color-primary);
     cursor: pointer;
     height: 1.1rem;
@@ -65,13 +65,27 @@ p {
     width: 1.1rem;
 }
 
+.sync-icon {
+    color: var(--color-primary);
+    cursor: pointer;
+    height: 1.3rem;
+    margin-left: 0.2rem;
+    vertical-align: middle;
+    width: 1.3rem;
+}
+
 .switch {
     height: 1.5rem;
     width: 1.5rem;
 }
 
 .switch-disabled {
-    color: var(--color-text)
+    color: var(--color-text);
+    margin-left: 0.2rem;
+}
+
+.switch-enabled {
+    margin-left: 0.2rem;
 }
 
 .switch-hidden {
@@ -80,6 +94,16 @@ p {
 
 .header-switch--disabled {
     color: var(--color-text);
+}
+
+.empty {
+    opacity: .3;
+    padding: 3rem 1.5rem 2.5rem 1.5rem;
+    text-align: center;
+}
+
+.empty-hidden {
+    display: none;
 }
 
 .spacer {
@@ -121,13 +145,14 @@ p {
     border-bottom: 1px solid var(--color-primary);
 }
 
-.detections {
+.container {
     columns: 1;
     column-gap: 3rem;
     padding: 1.5rem 1.5rem .5rem 1.5rem;
+    border-bottom: 1px solid var(--color-secondary);
 }
 
-.detections-hidden {
+.container-hidden {
     display: none;
 }
 
@@ -145,4 +170,58 @@ p {
 
 .options-heading {
     white-space: nowrap;
+}
+
+.syllabus {
+    display: block;
+    line-height: 1.7rem;
+}
+
+.syllabus-title {
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+}
+
+.syllabus-heading {
+    white-space: nowrap;
+}
+
+.syllabus-text {
+    font-weight: bold;
+    line-height: 2rem;
+    text-decoration: none;
+}
+
+.course-heading {
+    display: flex;
+    align-items: center;
+    margin-bottom: .2rem;
+}
+
+.course-link {
+    color: var(--color-text);
+    display: block;
+    width: 100%;
+}
+
+.course-link .course-name {
+    border-bottom: 1px solid var(--color-secondary);
+}
+
+.course-link:hover {
+    text-decoration: none;
+}
+
+.course-link:hover .course-name {
+    border-bottom: 1px solid var(--color-primary);
+    color: var(--color-primary);
+}
+
+.course-time {
+    background: var(--color-secondary);
+    border-radius: 3px;
+    font-size: .7rem;
+    padding: .1rem .3rem;
+    margin-left: .2rem;
+    vertical-align: middle;
 }

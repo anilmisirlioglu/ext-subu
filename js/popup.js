@@ -71,7 +71,7 @@ const initOptions = async () => {
 }
 
 const renderPPUI = status => {
-    Popup.renderHTML(status)
+    Popup.runScript(`App.renderPP(${status})`)
 
     if(status){
         document
@@ -90,11 +90,23 @@ const renderPPUI = status => {
     }
 }
 
+const initSyllabusSync = () => {
+    document
+        .querySelector('.sync-icon')
+        .addEventListener('click', async () => {
+            Popup.runScript(`App.scrapeLMS()`)
+
+            await Popup.renderSyllabus()
+        })
+}
+
 const Popup = {
     async init(){
         await Promise.all([
             initHeader(),
-            initOptions()
+            initOptions(),
+            initSyllabusSync(),
+            Popup.renderSyllabus()
         ])
 
         Array.from(document.querySelectorAll('a')).forEach((a) =>
@@ -108,8 +120,7 @@ const Popup = {
         )
     },
 
-    // TODO(anilmisirlioglu)::Direct run code block, dont give of payload parameter
-    renderHTML: payload => {
+    runScript: script => {
         chrome.windows.getCurrent({ populate: true }, currentWindow => {
             chrome.tabs.query({
                 currentWindow: true,
@@ -121,11 +132,40 @@ const Popup = {
             }, tabs => {
                 for(const tab of tabs){
                     chrome.tabs.executeScript(tab.id, {
-                        code: `App.renderPP(${payload})`
+                        code: script
                     })
                 }
             })
         })
+    },
+
+    async renderSyllabus(){
+        const root = document.querySelector('.syllabus')
+        const template = document.getElementById('course')
+        const empty = document.querySelector('.empty')
+
+        const items = await getOption('syllabus', [])
+        if(items.length > 0){
+            empty.classList.add('empty-hidden')
+        }else{
+            empty.classList.remove('empty-hidden')
+        }
+
+        document.querySelectorAll('.course-heading').forEach(item => item.remove())
+        for(const item of items){
+            const clone = template.content.cloneNode(true)
+
+            const a = clone.querySelector('a')
+            a.href = item.url
+
+            const spanOfName = a.querySelector('span:first-child')
+            spanOfName.innerText = item.name
+
+            const spanOfTime = a.querySelector('span:last-child')
+            spanOfTime.innerText = item.date
+
+            root.appendChild(clone)
+        }
     },
 
     driver(func, args){

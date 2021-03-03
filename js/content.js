@@ -1,28 +1,34 @@
-const { renderPP } = App
-
-const { getOption } = Utils
+const {
+    getOption,
+    setOption,
+    toTitleFormat
+} = Utils
 
 const Content = {
     async init(){
         const appStatus = await getOption('disabled', false)
         if(!appStatus){
-            await renderPP(await getOption('pp', true))
+            await App.renderPP(await getOption('pp', true))
 
             Content.fixUI()
+
+            await getOption('syllabus', null) || await App.scrapeLMS()
         }
     },
 
     fixUI(){
-        // LMS Options Menu UI Fixer
-        Array.from(document.querySelectorAll('.profile-contact-links')).forEach((box) => {
-            box.style['margin-right'] = '10px'
-            box.style['margin-left'] = '10px'
-        })
-
-        // SABIS Lessons UI Fixer
-        document
-            .querySelector('#wrap > div.container > div.row')
-            .style['margin-left'] = '10px'
+        if(/lms/gi.test(window.location.href)){
+            // LMS Options Menu UI Fixer
+            Array.from(document.querySelectorAll('.profile-contact-links')).forEach((box) => {
+                box.style['margin-right'] = '10px'
+                box.style['margin-left'] = '10px'
+            })
+        }else if(/sabis/gi.test(window.location.href)){
+            // SABIS Lessons Page UI Fixer
+            document
+                .querySelector('#wrap > div.container > div.row')
+                .style['margin-left'] = '10px'
+        }
     },
 
     driver(func, args){

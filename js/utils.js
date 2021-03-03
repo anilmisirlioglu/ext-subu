@@ -37,7 +37,7 @@ const Utils = {
     /**
      * Get value from local storage
      * @param {String} name
-     * @param {string|boolean|null} defaultValue
+     * @param {string|boolean|null|Array} defaultValue
      */
     async getOption(name, defaultValue = null){
         try{
@@ -55,8 +55,8 @@ const Utils = {
 
     /**
      * Set value in local storage
-     * @param {String} name
-     * @param {String|boolean} value
+     * @param {string} name
+     * @param {string|boolean|Array} value
      */
     async setOption(name, value){
         try{
@@ -66,6 +66,17 @@ const Utils = {
         }catch(error){
             console.error('SUBÜ | utils |', error)
         }
+    },
+
+    /**
+     * String convert to title format
+     * @param {string} str
+     * @return string
+     */
+    toTitleFormat(str){
+        return str.replace(/İ*\w\S*/g, text => {
+            return text.charAt(0).toLocaleUpperCase('tr-TR') + text.substr(1).toLocaleLowerCase('tr-TR')
+        })
     },
 
     sendMessage(source, func, args){
