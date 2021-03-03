@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "SUBÜ Fixer",
-  "version": "1.0",
+  "version": "0.1",
   "author": "Anıl Mısırlıoğlu",
   "homepage_url": "https://github.com/anilmisirlioglu/ext-subu",
   "description": "Chrome extension for Sakarya University of Applied Sciences",
@@ -32,8 +32,25 @@
     "default_popup": "html/popup.html"
   },
   "background": {
-    "page": "html/background.html"
+    "scripts": [
+      "js/utils.js",
+      "js/app.js"
+    ]
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*.subu.edu.tr/*",
+        "https://*.subu.edu.tr/*"
+      ],
+      "js": [
+        "js/utils.js",
+        "js/app.js",
+        "js/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
   "permissions": [
     "cookies",
     "storage",

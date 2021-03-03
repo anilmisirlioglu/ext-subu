@@ -9,7 +9,7 @@ const {
 } = Utils
 
 const initHeader = async () => {
-    setExtensionStatus(await getOption('disabled'))
+    setExtensionStatus(await getOption('disabled', false))
 
     document
         .querySelector('.header-switch--disabled')
@@ -29,9 +29,7 @@ const initHeader = async () => {
 
     document
         .querySelector('.header-settings')
-        .addEventListener('click', () => chrome.tabs.create({
-            url: 'chrome://extensions/?id=' + chrome.runtime.id
-        }))
+        .addEventListener('click', () => open('chrome://extensions/?id=' + chrome.runtime.id))
 }
 
 const setExtensionStatus = enabled => {
@@ -53,22 +51,28 @@ const setExtensionStatus = enabled => {
 }
 
 const initOptions = async () => {
-    setPPStatus(await getOption('pp-disabled'))
+    const opt = await getOption('pp', false)
+    setPPStatus(opt)
+    Popup.renderHTML(opt)
 
     document
         .getElementById('pp-disabled')
         .addEventListener('click', async() => {
-            await setOption('pp-disabled', false)
+            await setOption('pp', true)
 
-            setPPStatus(false)
+            Popup.renderHTML('true')
+
+            setPPStatus(true)
         })
 
     document
         .getElementById('pp-enabled')
         .addEventListener('click', async() => {
-            await setOption('pp-disabled', true)
+            await setOption('pp', false)
 
-            setPPStatus(true)
+            Popup.renderHTML('false')
+
+            setPPStatus(false)
         })
 }
 
@@ -76,33 +80,22 @@ const setPPStatus = status => {
     if(status){
         document
             .getElementById('pp-enabled')
-            .classList.add('switch-hidden')
+            .classList.remove('switch-hidden')
         document
             .getElementById('pp-disabled')
-            .classList.remove('switch-hidden')
+            .classList.add('switch-hidden')
     }else{
         document
             .getElementById('pp-enabled')
-            .classList.remove('switch-hidden')
+            .classList.add('switch-hidden')
         document
             .getElementById('pp-disabled')
-            .classList.add('switch-hidden')
+            .classList.remove('switch-hidden')
     }
 }
 
 const Popup = {
     async init(){
-        // Templates
-        Popup.templates = Array.from(
-            document.querySelectorAll('[data-template]')
-        ).reduce((templates, template) => {
-            templates[template.dataset.template] = template.cloneNode(true)
-
-            template.remove()
-
-            return templates
-        }, {})
-
         await Promise.all([
             initHeader(),
             initOptions()
@@ -117,6 +110,26 @@ const Popup = {
                 return false
             })
         )
+    },
+
+    // TODO(anilmisirlioglu)::Direct run code block, dont give of payload parameter
+    renderHTML: payload => {
+        chrome.windows.getCurrent({ populate: true }, currentWindow => {
+            chrome.tabs.query({
+                currentWindow: true,
+                active: true,
+                url: [
+                    'http://*.subu.edu.tr/*',
+                    'https://*.subu.edu.tr/*'
+                ]
+            }, tabs => {
+                for(const tab of tabs){
+                    chrome.tabs.executeScript(tab.id, {
+                        code: `App.renderPP(${payload})`
+                    })
+                }
+            })
+        })
     },
 
     driver(func, args){

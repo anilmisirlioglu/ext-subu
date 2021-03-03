@@ -31,13 +31,13 @@ const Utils = {
      * @param {Boolean} active
      */
     open(url, active = true){
-        chrome.tabs.create({url, active})
+        chrome.tabs.create({ url, active })
     },
 
     /**
      * Get value from local storage
      * @param {String} name
-     * @param {string|mixed|null} defaultValue
+     * @param {string|boolean|null} defaultValue
      */
     async getOption(name, defaultValue = null){
         try{
