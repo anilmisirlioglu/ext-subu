@@ -7,9 +7,9 @@ const Content = {
         const appStatus = await getOption('disabled', false)
         if(!appStatus){
             await renderPP(await getOption('pp', true))
-        }
 
-        Content.fixUI()
+            Content.fixUI()
+        }
     },
 
     fixUI(){
@@ -18,6 +18,11 @@ const Content = {
             box.style['margin-right'] = '10px'
             box.style['margin-left'] = '10px'
         })
+
+        // SABIS Lessons UI Fixer
+        document
+            .querySelector('#wrap > div.container > div.row')
+            .style['margin-left'] = '10px'
     },
 
     driver(func, args){
