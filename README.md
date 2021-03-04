@@ -1,4 +1,8 @@
-## Installation Guide
+## Compatibility
+* Google Chrome
+* Safari
+
+## Installation Guide for Google Chrome
 
 1. First, install repository
     ```sh
@@ -14,4 +18,6 @@
 5. Finally, enjoy.
 
 ## Preview
-![image](https://user-images.githubusercontent.com/20264712/109868555-d1a36c00-7c78-11eb-93e5-19a5b4c4399e.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/20264712/109868555-d1a36c00-7c78-11eb-93e5-19a5b4c4399e.png">
+</p>

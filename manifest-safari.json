@@ -1,0 +1,65 @@
+{
+  "manifest_version": 2,
+  "name": "SUBÜ Fixer",
+  "short_name": "SUBÜ Fixer",
+  "version": "0.1",
+  "author": "Anıl Mısırlıoğlu",
+  "homepage_url": "https://github.com/anilmisirlioglu/ext-subu",
+  "description": "Chrome extension for Sakarya University of Applied Sciences",
+  "icons": {
+    "16": "images/icon_16.png",
+    "19": "images/icon_19.png",
+    "32": "images/icon_32.png",
+    "48": "images/icon_48.png",
+    "64": "images/icon_64.png",
+    "128": "images/icon_128.png",
+    "256": "images/icon_256.png",
+    "512": "images/icon_512.png",
+    "1024": "images/icon_1024.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "images/icon_16.png",
+      "19": "images/icon_19.png",
+      "32": "images/icon_32.png",
+      "48": "images/icon_48.png",
+      "64": "images/icon_64.png",
+      "128": "images/icon_128.png",
+      "256": "images/icon_256.png",
+      "512": "images/icon_512.png",
+      "1024": "images/icon_1024.png"
+    },
+    "default_title": "SUBÜ Fixer",
+    "default_popup": "html/popup.html"
+  },
+  "background": {
+    "scripts": [
+      "js/utils.js",
+      "js/app.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*.subu.edu.tr/*",
+        "https://*.subu.edu.tr/*"
+      ],
+      "js": [
+        "js/utils.js",
+        "js/app.js",
+        "js/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "cookies",
+    "storage",
+    "tabs",
+    "webRequest",
+    "webNavigation",
+    "http://*.subu.edu.tr/*",
+    "https://*.subu.edu.tr/*"
+  ],
+  "content_security_policy": "script-src 'self'; object-src 'self'"
+}
